@@ -1,0 +1,76 @@
+<?php
+/**
+ * @var Ecommage\BuyTogether\Block\Index $block
+ */
+$product = $block->getBTogether();
+$thumbnail = $block->getThumnailUrl();
+?>
+
+<?php if (!empty($product)) { ?>
+<div class="abx" style="margin-bottom: 30px">
+    <div class="title-buy-together">
+        <?= __("Frequently Bought Together") ?>
+    </div>
+    <div class="product-buy-together">
+        <div class="row-product-bt" style="display: flex;">
+            <div>
+                <div class="product-item-buy-together" style="margin-right: 30px">
+                    <div class="thumnail-product-bt">
+                        <img src="<?= $thumbnail.$block->getProduct()->getThumbnail() ?>" alt="" style="width: 100px;">
+                    </div>
+                    <div class="name-product-bt">
+                        <?= $block->getProduct()->getName() ?>
+                    </div>
+                    <div class="price-product-bt">
+                        $<?= number_format($block->getProduct()->getPrice(),2,".","."); ?>
+                    </div>
+                </div>
+            </div>
+            <?php
+                $count = $block->getProduct()->getPrice();
+            ?>
+            <?php foreach ($product as $item) { ?>
+                <?php if ($block->getProduct()->getId() == $item->getId()) { continue; }?>
+                <?php
+                    $count += $item->getPrice();
+                ?>
+                <div>
+                    <div><span>+</span></div>
+                    <div class="product-item-buy-together" style="margin-right: 30px">
+                        <div class="thumnail-product-bt">
+                            <img src="<?= $thumbnail.$item->getThumbnail() ?>" alt="" style="width: 100px;">
+                        </div>
+                        <div class="name-product-bt">
+                            <?= $item->getName() ?>
+                        </div>
+                        <div class="price-product-bt">
+                            $<?= number_format($item->getPrice(),2,".","."); ?>
+                        </div>
+                    </div>
+                    <input type="checkbox" class="choose-product-bt" data-id-product="<?= $item->getEntityId() ?>" data-price-product="<?= $item->getPrice() ?>">
+                </div>
+            <?php } ?>
+            <div class="correct-order">
+                <div class="total-price-product">
+                    <div class="discountPrice">$<?= number_format($count - $block->getDiscount(),2,".","."); ?></div>
+                    <div class="basePrice" style="text-decoration:line-through;">$<?= number_format($count,2,".","."); ?></div>
+                </div>
+                <div class="button">
+                    <input type="button" value="<?= __("Buy") ?>" class="correct-sale">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php } ?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Ecommage_BuyTogether/js/buyTogether" : {
+                "thisProductId":"<?= $block->getProduct()->getId() ?>",
+                "thisProductPrice":"<?= $block->getProduct()->getPrice() ?>"
+            }
+        }
+    }
+</script>

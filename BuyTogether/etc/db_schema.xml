@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="pack_buy_together" resource="default" engine="innodb" comment="Pack buy together">
+        <column xsi:type="int" name="pack_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false"
+                comment="Title"/>
+
+        <column xsi:type="int" name="main_product_id" unsigned="true" nullable="false" comment="Product Main"/>
+        <column xsi:type="varchar" name="product_ids" length="30"  nullable="false" comment="Product Buy Together"/>
+        <column xsi:type="float" name="percent" nullable="false" comment="Percent"/>
+        <column xsi:type="int" name="quantity" nullable="false"
+                comment="Quantity"/>
+        <column xsi:type="int" name="status" nullable="false"
+                comment="Status"/>
+        <column xsi:type="float" name="discount" nullable="false"
+                comment="Discount"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="pack_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PACK_BUY_TOGETHER_PACK" table="pack_buy_together" column="main_product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="LOCATION_STORE_INDEX_TITLE" indexType="btree">
+            <column name="title"/>
+        </index>
+    </table>
+</schema>

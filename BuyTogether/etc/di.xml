@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ebtfix_listing_data_source" xsi:type="string">Ecommage\BuyTogether\Model\ResourceModel\Pack\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Ecommage\BuyTogether\Model\ResourceModel\Pack\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">pack_buy_together</argument>
+            <argument name="resourceModel" xsi:type="string">Ecommage\BuyTogether\Model\ResourceModel\Pack</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Checkout\Controller\Onepage\Success">
+        <plugin name="ecommage-validation-post" type="Ecommage\BuyTogether\Plugin\AddQuantity" sortOrder="5" />
+    </type>
+
+    <type name="Magento\Ui\Controller\Adminhtml\Index\Render">
+        <plugin name="ecommage-main-product-id" type="Ecommage\BuyTogether\Plugin\SaveMainProductId" sortOrder="5" />
+    </type>
+
+    <preference for="Ecommage\BuyTogether\Api\PackRepositoryInterface" type="Ecommage\BuyTogether\Model\PackRepository" />
+    <preference for="Ecommage\BuyTogether\Api\Data\PackInterface" type="Ecommage\BuyTogether\Model\Pack" />
+    <preference for="Ecommage\BuyTogether\Api\Data\PackSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+</config>
