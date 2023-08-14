@@ -1,0 +1,46 @@
+<?php
+/**
+ * @var Ecommage\FilterStore\Block\Index $block
+ */
+$location = $block->getLocationStore();
+$region = $block->getAllRegion();
+$city = $block->getAllCity();
+?>
+<div style="display: flex;">
+    <select name="" class="regionStore">
+        <option value="0">-- <?= __("All City") ?> --</option>
+        <?php foreach ($region as $value)  {?>
+        <option value="<?= $value["id"] ?>"><?= $value["label"] ?></option>
+        <?php } ?>
+    </select>
+
+    <select class="cityStore">
+        <option value="0">-- <?= __("All Ward") ?> --</option>
+    </select>
+</div>
+<div>
+    <?php if ($location != "") { ?>
+    <div class="numberStore">
+        <span class="locationCount"> <?= $location->count() ?> </span> <?= __("store has the product") ?>
+    </div>
+    <div class="locationStore">
+        <?php foreach ($location as $val) { ?>
+            <div>
+                <span><?= $val->getPhone() ?></span>
+                <span><?= $val->getAddress() ?></span>
+            </div>
+        <?php } ?>
+    </div>
+    <?php } ?>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Ecommage_FilterStore/js/locationStore" : {
+                "location":<?= json_encode($location->getData()) ?>,
+                "city":<?= json_encode($city) ?>
+            }
+        }
+    }
+</script>

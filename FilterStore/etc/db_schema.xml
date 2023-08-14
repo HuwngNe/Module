@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="location_store" resource="default" engine="innodb" comment="Location Store">
+        <column xsi:type="int" name="location_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false"
+                comment="Title"/>
+        <column xsi:type="varchar" name="country_id" length="2" nullable="false"
+                comment="Country ID"/>
+        <column xsi:type="int" name="region_id" unsigned="true" nullable="false"
+                comment="Region Id"/>
+        <column xsi:type="int" name="city_id" unsigned="true" nullable="false"
+                comment="City Id"/>
+        <column xsi:type="text" name="address" nullable="false" comment="Address"/>
+        <column xsi:type="varchar" name="phone" length="20"  nullable="true" comment="Phone Number"/>
+        <column xsi:type="varchar" name="email" length="255"  nullable="true" comment="Email address"/>
+        <column xsi:type="text" name="product_ids" nullable="false" comment="Product Ids"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="location_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="LOCATION_STORE_REGION" table="location_store" column="region_id" referenceTable="directory_country_region" referenceColumn="region_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="LOCATION_STORE_CITY" table="location_store" column="city_id" referenceTable="directory_region_city" referenceColumn="city_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="LOCATION_STORE_COUNTRY" table="location_store" column="country_id" referenceTable="directory_country" referenceColumn="country_id" onDelete="CASCADE"/>
+        <index referenceId="LOCATION_STORE_INDEX_TITLE" indexType="btree">
+            <column name="title"/>
+        </index>
+        <index referenceId="LOCATION_STORE_INDEX_PHONE" indexType="btree">
+            <column name="phone"/>
+        </index>
+        <index referenceId="LOCATION_STORE_INDEX_EMAIL" indexType="btree">
+            <column name="email"/>
+        </index>
+    </table>
+</schema>

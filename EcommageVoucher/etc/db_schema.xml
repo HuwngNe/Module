@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="ecommage_voucher" resource="default" engine="innodb" comment="Voucher">
+        <column xsi:type="int" name="voucher_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false"
+                comment="Title"/>
+        <column xsi:type="float" name="percent" nullable="false" comment="Percent voucher"/>
+        <column xsi:type="datetime" name="start_date" nullable="false" comment="Start date voucher"/>
+        <column xsi:type="datetime" name="end_date"  nullable="false" comment="End date voucher"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <column xsi:type="int" name="status" nullable="false" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="voucher_id"/>
+        </constraint>
+        <index referenceId="ECOMMAGE_VOUCHER_INDEX_TITLE" indexType="btree">
+            <column name="title"/>
+        </index>
+    </table>
+
+    <table name="customer_voucher" resource="default" engine="innodb" comment="Voucher Customer">
+        <column xsi:type="int" name="vcus_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="int" name="voucher_id" nullable="false" unsigned="true"
+                comment="Voucher ID"/>
+        <column xsi:type="int" name="customer_id" nullable="true"
+                comment="Customer ID"/>
+        <column xsi:type="varchar" name="email" nullable="true" length="255"
+                comment="Email Addree"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <column xsi:type="int" name="status" nullable="false" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="vcus_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CUSTOMER_VOUCHER_VOUCHER" table="customer_voucher" column="voucher_id" referenceTable="ecommage_voucher" referenceColumn="voucher_id" onDelete="CASCADE"/>
+    </table>
+</schema>

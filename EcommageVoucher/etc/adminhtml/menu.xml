@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecommage_EcommageVoucher::voucher" title="Voucher" module="Ecommage_EcommageVoucher" sortOrder="30" resource="Ecommage_EcommageVoucher::voucher"/>
+        <add id="Ecommage_EcommageVoucher::voucherAll" title="All Voucher" module="Ecommage_EcommageVoucher" sortOrder="30" action="ecommage_ecommagevoucher/voucher/index" resource="Ecommage_EcommageVoucher::voucherAll" parent="Ecommage_EcommageVoucher::voucher"/>
+        <add id="Ecommage_EcommageVoucher::voucher_send_configuration" title="Configuration Send Voucher" module="Ecommage_EcommageVoucher" sortOrder="99" parent="Ecommage_EcommageVoucher::voucher" action="adminhtml/system_config/edit/section/voucher_setup" resource="Ecommage_EcommageVoucher::voucherSetup"/>
+    </menu>
+</config>

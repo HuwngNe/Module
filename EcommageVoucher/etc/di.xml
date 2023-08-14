@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ecommage_ecommagevoucher_listing_data_source" xsi:type="string">Ecommage\EcommageVoucher\Model\ResourceModel\Voucher\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Ecommage\EcommageVoucher\Model\ResourceModel\Voucher\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ecommage_voucher</argument>
+            <argument name="resourceModel" xsi:type="string">Ecommage\EcommageVoucher\Model\ResourceModel\Voucher</argument>
+        </arguments>
+    </virtualType>
+
+    <preference for="Ecommage\EcommageVoucher\Api\VoucherRepositoryInterface" type="Ecommage\EcommageVoucher\Model\VoucherRepository" />
+    <preference for="Ecommage\EcommageVoucher\Api\Data\VoucherInterface" type="Ecommage\EcommageVoucher\Model\Voucher" />
+    <preference for="Ecommage\EcommageVoucher\Api\Data\VoucherSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+
+    <preference for="Ecommage\EcommageVoucher\Api\VoucherCustomerRepositoryInterface" type="Ecommage\EcommageVoucher\Model\VoucherCustomerRepository" />
+    <preference for="Ecommage\EcommageVoucher\Api\Data\VoucherCustomerInterface" type="Ecommage\EcommageVoucher\Model\VoucherCustomer" />
+    <preference for="Ecommage\EcommageVoucher\Api\Data\VoucherCustomerSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+
+</config>
